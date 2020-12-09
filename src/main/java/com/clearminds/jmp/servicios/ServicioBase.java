@@ -25,4 +25,14 @@ public class ServicioBase {
 			}
 		}
 	}
+
+	public Connection getConexion() {
+		return conexion;
+	}
+
+	public void setConexion(Connection conexion) {
+		this.conexion = conexion;
+	}
+	
+	
 }

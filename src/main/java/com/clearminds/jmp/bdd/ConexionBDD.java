@@ -3,6 +3,7 @@
  */
 package com.clearminds.jmp.bdd;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class ConexionBDD {
 		Properties p = new Properties();
 		String valor = null;
 		try {
+			File f = new File("conexion.properties");
+			System.out.println("ruta:"+f.getAbsolutePath());
 			p.load(new FileReader("conexion.properties"));
 			valor = p.getProperty(propiedad);
 			return valor;

@@ -2,9 +2,11 @@ package com.clearminds.jmp.servicios;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 import com.clearminds.jmp.dtos.Estudiante;
 import com.clearminds.jmp.excepciones.BDDException;
+import com.clearminds.jmp.util.DateUtil;
 
 public class ServicioEstudiante extends ServicioBase{
 
@@ -12,12 +14,13 @@ public class ServicioEstudiante extends ServicioBase{
 		//1. Abre conexion a la bd
 		abrirConexion();
 		System.out.println("Insertando estudiante: " + estudiante);
+		
 		Statement stmt = null;
 		try {
 			stmt = getConexion().createStatement();
-			
-			String sql = "insert into estudiantes(nombre, apellido, edad) values ('"+
-			estudiante.getNombre()+"', '"+estudiante.getApellido()+"', " + estudiante.getEdad() +")";
+			Date fechaSistema = new Date();
+			String sql = "insert into estudiantes(nombre, apellido, edad, fecha_modificacion) values ('"+
+			estudiante.getNombre()+"', '"+estudiante.getApellido()+"', " + estudiante.getEdad() +", '"+ DateUtil.convertitfecha(fechaSistema) + "')";
 			
 			System.out.println("Script: " + sql);
 			
@@ -33,12 +36,13 @@ public class ServicioEstudiante extends ServicioBase{
 	public void actualizarEstudiante(Estudiante estudiante) throws BDDException{
 		abrirConexion();
 		System.out.println("Actualizando estudiante: " + estudiante);
+		
 		Statement stmt = null;
 		try {
 			stmt = getConexion().createStatement();
-			
+			Date fechaSistema = new Date();
 			String sql = "update estudiantes set nombre='"+estudiante.getNombre()+"', apellido='"+estudiante.getApellido()+
-					"', edad=" + estudiante.getEdad() + " where id="+estudiante.getId()+"";
+					"', edad=" + estudiante.getEdad() + ", fecha_modificacion= '"+DateUtil.convertitfecha(fechaSistema)+"' where id="+estudiante.getId()+"";
 			
 			System.out.println("Script: " + sql);
 			
